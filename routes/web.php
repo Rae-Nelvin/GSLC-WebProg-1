@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\User\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
@@ -18,9 +19,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    $user = User::all();
-    return view('dashboard', ['users' => $user]);
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [UserController::class, 'show'])->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__ . '/auth.php';
